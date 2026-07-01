@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#13100D">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <!-- SEO -->
+  <title>Sara & Ahmed — Wedding Invitation</title>
+  <meta name="description" content="Join us in celebrating the wedding of Sara & Ahmed on the 15th of March 2025. You are warmly invited.">
+
+  <!-- Open Graph / WhatsApp / Social Sharing -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://yourdomain.com/">
+  <meta property="og:title" content="Sara & Ahmed — Wedding Invitation ♡">
+  <meta property="og:description" content="We joyfully invite you to celebrate our wedding on March 15, 2025">
+  <meta property="og:image" content="https://yourdomain.com/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="ar_SA">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Sara & Ahmed — Wedding Invitation">
+  <meta name="twitter:description" content="You're invited to our wedding celebration">
+  <meta name="twitter:image" content="https://yourdomain.com/og-image.jpg">
+
+  <!-- Fonts: Cormorant Garamond (luxury serif) + Jost (clean sans) + Amiri (Arabic) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ════════════════════════════════
+       LOADING SCREEN
+  ════════════════════════════════ -->
+  <div id="loading-screen" class="loading-screen" aria-hidden="true">
+    <div class="loading-inner">
+      <div class="loading-ring"></div>
+      <p class="loading-text">Loading</p>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════
+       OPENING CINEMATIC SCREEN
+       ─────────────────────────────
+       ★ CUSTOMIZATION — change these:
+         • Background IMAGE : uncomment <img> tag, set src="your-photo.jpg"
+         • Background VIDEO : uncomment <video> tag, set src="your-video.mp4"
+         • Music file       : see script.js → CONFIG.AUDIO_SRC
+         • Bride/Groom names: see script.js → CONFIG.BRIDE_NAME / GROOM_NAME
+         • Wedding date     : see script.js → CONFIG.WEDDING_DATE
+  ════════════════════════════════ -->
+  <section id="opening-screen" class="opening-screen" role="region" aria-label="Opening Screen">
+
+    <!-- ══ BACKGROUND MEDIA — set src in data.js ══
+         openingImage → media.openingImage: 'cover.jpg'
+         openingVideo → media.openingVideo: 'cover.mp4'
+         JS injects src automatically, nothing to change here
+    ═══════════════════════════════════════════════ -->
+    <div class="opening-bg" aria-hidden="true">
+      <div class="opening-bg-default"></div>
+      <img  id="opening-bg-img"
+            class="opening-bg-img"
+            src="" alt=""
+            style="display:none"
+            draggable="false">
+      <video id="opening-bg-video"
+             class="opening-bg-video"
+             autoplay muted loop playsinline
+             style="display:none"></video>
+    </div>
+
+    <!-- Floating Dust Particles -->
+    <canvas id="particles-canvas" class="particles-canvas" aria-hidden="true"></canvas>
+
+    <!-- Vignette + cinematic bars -->
+    <div class="opening-overlay" aria-hidden="true"></div>
+    <div class="cinematic-bar cinematic-top"    aria-hidden="true"></div>
+    <div class="cinematic-bar cinematic-bottom" aria-hidden="true"></div>
+
+    <!-- ══ PREMIUM OPEN BUTTON ══ -->
+    <div class="opening-cta">
+      <button id="open-btn" class="open-btn" type="button"
+              aria-label="Open The Invitation">
+
+        <!-- Outer pulse rings -->
+        <span class="open-btn-ring open-btn-ring-1" aria-hidden="true"></span>
+        <span class="open-btn-ring open-btn-ring-2" aria-hidden="true"></span>
+
+        <!-- Glass pill body -->
+        <span class="open-btn-body" aria-hidden="true">
+          <!-- Gold shimmer sweep -->
+          <span class="open-btn-shimmer" aria-hidden="true"></span>
+          <!-- Corner accents -->
+          <span class="open-btn-corner open-btn-corner-tl" aria-hidden="true"></span>
+          <span class="open-btn-corner open-btn-corner-br" aria-hidden="true"></span>
+        </span>
+
+        <!-- Icon + label -->
+        <span class="open-btn-inner">
+          <svg class="open-btn-icon" viewBox="0 0 22 22" fill="none"
+               aria-hidden="true">
+            <path d="M3 8 C3 4.5 6.5 2 11 2 C15.5 2 19 4.5 19 8 L19 14 C19 17 16.5 20 11 20 C5.5 20 3 17 3 14 Z"
+                  stroke="currentColor" stroke-width="1"/>
+            <path d="M8 8 L8 10 M14 8 L14 10" stroke="currentColor"
+                  stroke-width="1.2" stroke-linecap="round"/>
+            <path d="M8 14 C8 16 14 16 14 14" stroke="currentColor"
+                  stroke-width="1" stroke-linecap="round"/>
+          </svg>
+          <span class="open-btn-label">Open Invitation</span>
+        </span>
+
+      </button>
+
+      <!-- Hint text below button -->
+      <p class="open-btn-hint" aria-hidden="true">tap to reveal</p>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════
+       MAIN INVITATION
+  ════════════════════════════════ -->
+  <main id="invitation" class="invitation is-hidden" aria-label="Wedding Invitation">
+
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" role="progressbar" aria-label="Scroll Progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+      <div id="scroll-bar" class="scroll-bar"></div>
+    </div>
+
+    <!-- ── SECTION 1: HERO ── -->
+    <section class="section s-hero" data-section="hero" id="hero" aria-labelledby="hero-names">
+
+      <!-- Couple Photo (replace placeholder with your image) -->
+      <div class="hero-photo-wrapper">
+        <!--<div class="hero-photo-placeholder" role="img" aria-label="Couple Photo Placeholder">
+          <span class="hero-photo-icon" aria-hidden="true">♡</span>
+          <span class="hero-photo-hint">Add Your Photo Here</span>
+        </div>-->
+        <img src="1.jpg" alt="Sara and Ahmed" class="hero-photo" loading="eager"> 
+        <div class="hero-photo-frame" aria-hidden="true"></div>
+      </div>
+
+      <!-- Hero Text -->
+      <div class="hero-text">
+        <div class="ornament-row reveal" aria-hidden="true">
+          <span class="o-dot"></span>
+          <span class="o-line"></span>
+          <span class="o-leaf">❧</span>
+          <span class="o-line"></span>
+          <span class="o-dot"></span>
+        </div>
+
+        <p class="hero-bismillah reveal d1" id="hero-bismillah" lang="ar" dir="rtl"></p>
+
+        <h2 id="hero-names" class="hero-names reveal d2">
+          <span class="hero-bride" id="hero-bride" lang="ar"></span>
+          <span class="hero-and" aria-hidden="true">&amp;</span>
+          <span class="hero-groom" id="hero-groom" lang="ar"></span>
+        </h2>
+
+        <p class="hero-invite-ar reveal d3" id="hero-invite-ar" lang="ar" dir="rtl"></p>
+        <p class="hero-invite-en reveal d3" id="hero-invite-en"></p>
+
+        <div class="hero-date reveal d4" id="hero-date-parts" aria-label="Wedding Date"></div>
+
+        <div class="ornament-row reveal d5" aria-hidden="true">
+          <span class="o-dot"></span>
+          <span class="o-line"></span>
+          <span class="o-leaf">❦</span>
+          <span class="o-line"></span>
+          <span class="o-dot"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── QURAN VERSE ── -->
+    <section class="section s-quran reveal" data-section="quran" aria-labelledby="quran-heading">
+      <div class="quran-inner">
+        <span class="quran-bracket quran-bracket-open" aria-hidden="true">﴿</span>
+        <blockquote class="quran-verse" id="quran-verse" lang="ar" dir="rtl"></blockquote>
+        <span class="quran-bracket quran-bracket-close" aria-hidden="true">﴾</span>
+        <cite class="quran-source" id="quran-source" lang="ar" dir="rtl"></cite>
+      </div>
+      <div class="quran-glow" aria-hidden="true"></div>
+    </section>
+
+    <!-- Divider -->
+    <div class="divider" data-divider="1" aria-hidden="true"><span class="divider-gem">✦</span></div>
+
+    <!-- ── SECTION 2: COUNTDOWN ── -->
+    <section class="section s-countdown" data-section="countdown" id="countdown" aria-labelledby="countdown-heading">
+      <header class="section-header">
+        <p class="section-eyebrow reveal">counting down to forever</p>
+        <h2 class="section-title reveal d1" id="countdown-heading">The Day Is Near</h2>
+        <p class="section-title-ar reveal d2" lang="ar" dir="rtl">يقترب الموعد</p>
+      </header>
+
+      <div class="countdown-grid reveal d2" role="timer" aria-live="off" aria-label="Wedding Countdown">
+        <div class="countdown-card">
+          <div class="countdown-num" id="cd-days">00</div>
+          <div class="countdown-unit-en">Days</div>
+          <div class="countdown-unit-ar" lang="ar">يوم</div>
+        </div>
+        <div class="countdown-card">
+          <div class="countdown-num" id="cd-hours">00</div>
+          <div class="countdown-unit-en">Hours</div>
+          <div class="countdown-unit-ar" lang="ar">ساعة</div>
+        </div>
+        <div class="countdown-card">
+          <div class="countdown-num" id="cd-minutes">00</div>
+          <div class="countdown-unit-en">Minutes</div>
+          <div class="countdown-unit-ar" lang="ar">دقيقة</div>
+        </div>
+        <div class="countdown-card">
+          <div class="countdown-num" id="cd-seconds">00</div>
+          <div class="countdown-unit-en">Seconds</div>
+          <div class="countdown-unit-ar" lang="ar">ثانية</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Divider -->
+    <div class="divider" data-divider="2" aria-hidden="true"><span class="divider-gem">✦</span></div>
+
+    <!-- ── SECTION 3: EVENT DETAILS ── -->
+    <section class="section s-details" data-section="details" id="details" aria-labelledby="details-heading">
+      <header class="section-header">
+        <p class="section-eyebrow reveal">we await your presence</p>
+        <h2 class="section-title reveal d1" id="details-heading">Event Details</h2>
+        <p class="section-title-ar reveal d2" lang="ar" dir="rtl">تفاصيل الحفل</p>
+      </header>
+
+      <div class="details-grid">
+        <article class="detail-card reveal d1">
+          <div class="detail-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 22V11C4 7 8 4 12 4s8 3 8 7v11"/>
+              <line x1="2" y1="22" x2="22" y2="22"/>
+              <line x1="7" y1="22" x2="7" y2="15"/>
+              <line x1="17" y1="22" x2="17" y2="15"/>
+              <rect x="10" y="15" width="4" height="7"/>
+            </svg>
+          </div>
+          <h3 class="detail-label">Wedding Hall</h3>
+          <p class="detail-val-ar" id="detail-venue-ar" lang="ar" dir="rtl"></p>
+          <p class="detail-val-en" id="detail-venue-en"></p>
+        </article>
+
+        <article class="detail-card reveal d2">
+          <div class="detail-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+              <line x1="8" y1="15" x2="10" y2="15"/>
+              <line x1="14" y1="15" x2="16" y2="15"/>
+              <line x1="8" y1="19" x2="10" y2="19"/>
+            </svg>
+          </div>
+          <h3 class="detail-label">Date</h3>
+          <p class="detail-val-ar" id="detail-date-ar" lang="ar" dir="rtl"></p>
+          <p class="detail-val-en" id="detail-date-en"></p>
+        </article>
+
+        <article class="detail-card reveal d3">
+          <div class="detail-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9"/>
+              <polyline points="12 7 12 12 15.5 14.5"/>
+              <line x1="12" y1="3" x2="12" y2="2"/>
+              <line x1="12" y1="22" x2="12" y2="21"/>
+              <line x1="3" y1="12" x2="2" y2="12"/>
+              <line x1="22" y1="12" x2="21" y2="12"/>
+            </svg>
+          </div>
+          <h3 class="detail-label">Time</h3>
+          <p class="detail-val-ar" id="detail-time-ar" lang="ar" dir="rtl"></p>
+          <p class="detail-val-en" id="detail-time-en"></p>
+        </article>
+
+        <article class="detail-card reveal d4">
+          <div class="detail-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+          </div>
+          <h3 class="detail-label">Address</h3>
+          <p class="detail-val-ar" id="detail-address-ar" lang="ar" dir="rtl"></p>
+          <p class="detail-val-en" id="detail-address-en"></p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ── SECTION 4: LOCATION ── -->
+    <section class="section s-location reveal" data-section="location" id="location" aria-labelledby="location-heading">
+      <div class="location-inner">
+        <div class="location-icon-wrap" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
+        <h2 class="section-title" id="location-heading">Find Us</h2>
+        <p class="location-address" id="location-address" lang="ar" dir="rtl"></p>
+        <a id="maps-btn"
+           href="https://maps.google.com/?q=King+Fahd+Road+Riyadh"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="btn btn-map"
+           aria-label="Open location in Google Maps">
+          <svg class="btn-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polygon points="3 11 22 2 13 21 11 13 3 11"/>
+          </svg>
+          Open in Google Maps
+        </a>
+      </div>
+    </section>
+
+    <!-- Divider -->
+    <div class="divider" data-divider="3" aria-hidden="true"><span class="divider-gem">✦</span></div>
+
+    <!-- ── SECTION 5: CALENDAR ── -->
+    <section class="section s-calendar" data-section="calendar" id="calendar" aria-labelledby="calendar-heading">
+      <header class="section-header">
+        <p class="section-eyebrow reveal">don't miss the moment</p>
+        <h2 class="section-title reveal d1" id="calendar-heading">Add To Calendar</h2>
+        <p class="section-title-ar reveal d2" lang="ar" dir="rtl">أضف للتقويم</p>
+      </header>
+
+      <div class="calendar-btns reveal d2">
+        <!-- Google Calendar: calendar with dot grid -->
+        <a href="#" class="btn btn-cal" id="gcal-btn" onclick="addToGoogleCalendar(event)" aria-label="Add to Google Calendar">
+          <svg class="btn-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="4" width="18" height="18" rx="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+            <circle cx="8" cy="14.5" r="0.9" fill="currentColor" stroke="none"/>
+            <circle cx="12" cy="14.5" r="0.9" fill="currentColor" stroke="none"/>
+            <circle cx="16" cy="14.5" r="0.9" fill="currentColor" stroke="none"/>
+            <circle cx="8" cy="18.5" r="0.9" fill="currentColor" stroke="none"/>
+            <circle cx="12" cy="18.5" r="0.9" fill="currentColor" stroke="none"/>
+          </svg>
+          Google Calendar
+        </a>
+        <!-- Apple Calendar: calendar with prominent date circle -->
+        <a href="#" class="btn btn-cal" id="ical-btn" onclick="addToAppleCalendar(event)" aria-label="Add to Apple Calendar">
+          <svg class="btn-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="4" width="18" height="18" rx="4"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+            <circle cx="12" cy="16" r="3.5"/>
+            <polyline points="12 14 12 16.2 13.5 17.2"/>
+          </svg>
+          Apple Calendar
+        </a>
+        <!-- Outlook: calendar with envelope shape -->
+        <a href="#" class="btn btn-cal" id="outlook-btn" onclick="addToOutlook(event)" aria-label="Add to Outlook Calendar">
+          <svg class="btn-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="4" width="18" height="18" rx="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+            <rect x="6" y="13.5" width="12" height="7" rx="1"/>
+            <polyline points="6,13.5 12,17.5 18,13.5"/>
+          </svg>
+          Outlook
+        </a>
+      </div>
+    </section>
+
+    <!-- Divider -->
+    <div class="divider" data-divider="4" aria-hidden="true"><span class="divider-gem">✦</span></div>
+
+    <!-- ── SECTION: RSVP ── -->
+    <section class="section s-rsvp" data-section="rsvp" id="rsvp" aria-labelledby="rsvp-heading">
+      <div class="rsvp-inner">
+        <header class="section-header">
+          <p class="section-eyebrow reveal">kindly reply</p>
+          <h2 class="section-title reveal d1" id="rsvp-heading">Attend With Us</h2>
+          <p class="section-title-ar reveal d2" lang="ar" dir="rtl">تشرّفنا بحضوركم</p>
+        </header>
+        <p class="rsvp-p-ar reveal d3" lang="ar" dir="rtl">نأمل تأكيد حضوركم قبل <span id="rsvp-deadline-ar"></span></p>
+        <p class="rsvp-p-en reveal d3">Kindly confirm your attendance before <span id="rsvp-deadline-en"></span></p>
+        <div class="rsvp-buttons reveal d4">
+          <a href="https://wa.me/966500000000?text=%F0%9F%8C%B9%20%D8%A3%D8%A4%D9%83%D8%AF%20%D8%AD%D8%B6%D9%88%D8%B1%D9%8A%20%D9%84%D8%AD%D9%81%D9%84%20%D8%B2%D9%81%D8%A7%D9%81%20%D8%B3%D8%A7%D8%B1%D8%A9%20%D9%88%D8%A3%D8%AD%D9%85%D8%AF%20%E2%9C%A8"
+             target="_blank" rel="noopener noreferrer"
+             class="rsvp-btn rsvp-btn-yes" id="rsvp-yes-btn" aria-label="Confirm attendance via WhatsApp">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Yes, I'll Be There &nbsp;·&nbsp; سأكون هناك ✨
+          </a>
+          <a href="https://wa.me/966500000000?text=%D8%A3%D8%B9%D8%AA%D8%B0%D8%B1%20%D8%B9%D9%86%20%D8%AD%D8%B6%D9%88%D8%B1%20%D8%AD%D9%81%D9%84%20%D8%B2%D9%81%D8%A7%D9%81%20%D8%B3%D8%A7%D8%B1%D8%A9%20%D9%88%D8%A3%D8%AD%D9%85%D8%AF"
+             target="_blank" rel="noopener noreferrer"
+             class="rsvp-btn rsvp-btn-no" id="rsvp-no-btn" aria-label="Send regrets via WhatsApp">
+            Unable to Attend &nbsp;·&nbsp; أعتذر عن الحضور
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Divider -->
+    <div class="divider" data-divider="5" aria-hidden="true"><span class="divider-gem">✦</span></div>
+
+    <!-- ── SECTION: BLESSINGS ── -->
+    <section class="section s-wishes" data-section="blessings" id="wishes" aria-labelledby="wishes-heading">
+      <div class="petal-container" aria-hidden="true">
+        <span class="petal"></span><span class="petal"></span><span class="petal"></span>
+        <span class="petal"></span><span class="petal"></span>
+      </div>
+      <div class="wishes-inner reveal">
+        <span class="flower-icon" aria-hidden="true">❧</span>
+        <h2 class="wishes-title" id="wishes-title-en"></h2>
+        <p class="wishes-text-ar" id="wishes-text-ar" lang="ar" dir="rtl"></p>
+        <p class="wishes-text-en" id="wishes-text-en"></p>
+      </div>
+    </section>
+
+    <!-- Divider -->
+    <div class="divider" data-divider="6" aria-hidden="true"><span class="divider-gem">✦</span></div>
+
+    <!-- ── SECTION 6: GALLERY ── -->
+    <section class="section s-gallery" data-section="gallery" id="gallery" aria-labelledby="gallery-heading">
+      <header class="section-header">
+        <p class="section-eyebrow reveal">our story</p>
+        <h2 class="section-title reveal d1" id="gallery-heading">Moments</h2>
+        <p class="section-title-ar reveal d2" lang="ar" dir="rtl">لحظاتنا</p>
+      </header>
+
+      <!-- Swipe carousel — rendered dynamically from data.js gallery[] -->
+      <div class="gallery-swipe-outer reveal d3">
+        <div class="gallery-swipe-track" id="gallery-track" role="list"
+             aria-label="Wedding Photo Gallery">
+          <!-- cards injected by renderGallery() in script.js -->
+        </div>
+
+        <!-- Dot indicators -->
+        <div class="gallery-dots" id="gallery-dots" aria-hidden="true"></div>
+
+        <!-- Arrow nav (desktop only) -->
+        <button class="gallery-arrow gallery-arrow-prev" id="gallery-prev" type="button"
+                aria-label="Previous photo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"/>
+          </svg>
+        </button>
+        <button class="gallery-arrow gallery-arrow-next" id="gallery-next" type="button"
+                aria-label="Next photo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Swipe hint -->
+      <p class="gallery-hint reveal d4" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="1.3" stroke-linecap="round" width="14" height="14">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+        swipe to explore
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="1.3" stroke-linecap="round" width="14" height="14"
+             style="transform:scaleX(-1)">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+      </p>
+    </section>
+
+    <!-- Divider -->
+    <div class="divider" data-divider="7" aria-hidden="true"><span class="divider-gem">✦</span></div>
+
+    <!-- ── SECTION 7: FINAL MESSAGE ── -->
+    <section class="section s-final" data-section="final" id="final" aria-labelledby="final-heading">
+      <div class="final-inner">
+        <div class="final-ornament reveal" aria-hidden="true">❧</div>
+
+        <h2 class="final-title reveal d1" id="final-title-ar" lang="ar" dir="rtl"></h2>
+        <p class="final-subtitle reveal d2" id="final-subtitle-en"></p>
+
+        <p class="final-msg-ar reveal d3" id="final-msg-ar" lang="ar" dir="rtl"></p>
+        <p class="final-msg-en reveal d3" id="final-msg-en"></p>
+
+        <div class="final-couple reveal d4">
+          <span id="final-bride" lang="ar"></span>
+          <span class="final-couple-and" aria-hidden="true">&amp;</span>
+          <span id="final-groom" lang="ar"></span>
+        </div>
+        <p class="final-couple-date reveal d5" id="final-couple-date"></p>
+
+        <div class="final-actions reveal d5">
+          <a href="https://wa.me/?text=%F0%9F%8C%B9%20You're%20warmly%20invited%20to%20the%20wedding%20of%20Sara%20%26%20Ahmed%20on%20Saturday%2C%20March%2015%2C%202025%20at%208%3A00%20PM.%20Nour%20Al-Riyadh%20Ballroom%2C%20King%20Fahd%20Road%2C%20Riyadh."
+             target="_blank"
+             rel="noopener noreferrer"
+             class="btn btn-whatsapp" id="whatsapp-share-btn"
+             aria-label="Share on WhatsApp">
+            <svg class="btn-ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            Share on WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <!-- Floating petals -->
+      <div class="petals-layer" aria-hidden="true">
+        <span class="petal"></span><span class="petal"></span><span class="petal"></span>
+        <span class="petal"></span><span class="petal"></span><span class="petal"></span>
+        <span class="petal"></span><span class="petal"></span>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         FOOTER — ZAWAJ BRAND
+         ★ CUSTOMIZATION:
+           • Brand name    : change "Zawaj" below
+           • Logo          : uncomment <img> and set src="zawaj-logo.svg"
+           • WhatsApp link : replace href with your wa.me number
+           • Instagram     : replace href with your @handle
+           • Facebook      : replace href with your page URL
+    ══════════════════════════════════════════ -->
+    <footer class="site-footer" data-section="footer">
+
+      <div class="footer-top-line" aria-hidden="true"></div>
+
+      <!-- Brand mark -->
+      <div class="footer-brand">
+        <img src="" alt="" class="footer-logo" id="footer-logo" style="display:none">
+        <p class="footer-brand-name" id="footer-brand-name"></p>
+        <p class="footer-tagline" id="footer-tagline"></p>
+      </div>
+
+      <!-- Social links ★ update hrefs below -->
+      <nav class="footer-social" aria-label="Social Media Links">
+
+        <!-- WhatsApp — replace 966XXXXXXXXX with your number -->
+        <a href="#" id="footer-whatsapp"
+           target="_blank" rel="noopener noreferrer"
+           class="footer-social-link" aria-label="WhatsApp">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+        </a>
+
+        <!-- Instagram — replace with your handle -->
+        <a href="#" id="footer-instagram"
+           target="_blank" rel="noopener noreferrer"
+           class="footer-social-link" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="2" width="20" height="20" rx="5"/>
+            <circle cx="12" cy="12" r="4.5"/>
+            <circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+
+        <!-- Facebook — replace with your page URL -->
+        <a href="#" id="footer-facebook"
+           target="_blank" rel="noopener noreferrer"
+           class="footer-social-link" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+          </svg>
+        </a>
+
+      </nav>
+
+      <p class="footer-copy">
+        <span aria-hidden="true">✦</span>&ensp;© 2025 Zawaj · All rights reserved&ensp;<span aria-hidden="true">✦</span>
+      </p>
+
+    </footer>
+
+  </main><!-- /invitation -->
+
+  <!-- ════════════════════════════════
+       FLOATING MUSIC BUTTON
+  ════════════════════════════════ -->
+  <button id="music-btn"
+          class="music-btn is-hidden"
+          type="button"
+          aria-label="Toggle background music"
+          aria-pressed="false">
+    <svg id="music-ico-note" class="music-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <path d="M9 18V5l12-2v13"/>
+      <circle cx="6" cy="18" r="3"/>
+      <circle cx="18" cy="16" r="3"/>
+    </svg>
+    <svg id="music-ico-pause" class="music-ico is-hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <rect x="6" y="4" width="4" height="16"/>
+      <rect x="14" y="4" width="4" height="16"/>
+    </svg>
+    <span class="music-ring" aria-hidden="true"></span>
+    <!-- Replace src with your romantic background music file -->
+    <audio id="bg-music" loop preload="none">
+      <!-- <source src="wedding-music.mp3" type="audio/mpeg"> -->
+    </audio>
+  </button>
+
+  <!-- ════════════════════════════════
+       CINEMATIC FULL-SCREEN VIEWER
+       (opens when gallery card is tapped)
+  ════════════════════════════════ -->
+  <div id="fs-viewer" class="fs-viewer" role="dialog" aria-modal="true"
+       aria-label="Photo Viewer" aria-hidden="true">
+    <!-- Background blur from current photo -->
+    <div class="fs-blur-bg" id="fs-blur-bg"></div>
+
+    <!-- Top bar -->
+    <div class="fs-topbar">
+      <span class="fs-counter" id="fs-counter" aria-live="polite">1 / 1</span>
+      <button class="fs-close" id="fs-close" type="button" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="1.2" stroke-linecap="round" aria-hidden="true">
+          <line x1="18" y1="6"  x2="6"  y2="18"/>
+          <line x1="6"  y1="6"  x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Main image -->
+    <div class="fs-img-wrap" id="fs-img-wrap">
+      <img id="fs-img" class="fs-img" src="" alt="" draggable="false">
+      <!-- Placeholder shown when no real image is loaded -->
+      <div class="fs-placeholder" id="fs-placeholder">
+        <span class="fs-ph-icon">♡</span>
+        <p class="fs-ph-text">Add photos in <code>data.js</code> → <code>gallery</code> array</p>
+      </div>
+    </div>
+
+    <!-- Arrow buttons -->
+    <button class="fs-arrow fs-prev" id="fs-prev" type="button" aria-label="Previous">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+    </button>
+    <button class="fs-arrow fs-next" id="fs-next" type="button" aria-label="Next">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6"/>
+      </svg>
+    </button>
+
+    <!-- Dot strip -->
+    <div class="fs-dots" id="fs-dots" aria-hidden="true"></div>
+
+    <!-- Cinematic vignette overlay -->
+    <div class="fs-vignette" aria-hidden="true"></div>
+  </div>
+
+  <!-- ════════════════════════════════
+       BACK TO TOP
+  ════════════════════════════════ -->
+  <button id="back-to-top" class="back-to-top is-hidden" type="button" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+      <polyline points="18 15 12 9 6 15"/>
+    </svg>
+  </button>
+
+  <!-- ════════════════════════════════
+       SIDE NAV DOTS
+  ════════════════════════════════ -->
+  <nav class="nav-dots is-hidden" aria-label="Section navigation" id="nav-dots">
+    <a href="#hero"      class="nav-dot is-active" aria-label="Hero"     data-section="hero"><span class="nav-dot-tip">Home</span></a>
+    <a href="#countdown" class="nav-dot"           aria-label="Countdown" data-section="countdown"><span class="nav-dot-tip">Countdown</span></a>
+    <a href="#details"   class="nav-dot"           aria-label="Details"   data-section="details"><span class="nav-dot-tip">Details</span></a>
+    <a href="#location"  class="nav-dot"           aria-label="Location"  data-section="location"><span class="nav-dot-tip">Location</span></a>
+    <a href="#calendar"  class="nav-dot"           aria-label="Calendar"  data-section="calendar"><span class="nav-dot-tip">Calendar</span></a>
+    <a href="#rsvp"      class="nav-dot"           aria-label="RSVP"      data-section="rsvp"><span class="nav-dot-tip">RSVP</span></a>
+    <a href="#gallery"   class="nav-dot"           aria-label="Gallery"   data-section="gallery"><span class="nav-dot-tip">Gallery</span></a>
+    <a href="#final"     class="nav-dot"           aria-label="Message"   data-section="final"><span class="nav-dot-tip">Message</span></a>
+  </nav>
+
+  <!-- Confetti Canvas -->
+  <canvas id="confetti-canvas" class="confetti-canvas" aria-hidden="true"></canvas>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
